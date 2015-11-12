@@ -10,7 +10,7 @@ use yii\web\View;
 use yii\helpers\Url;
 
 
-class Selectivity extends \yii\base\Widget {
+class Selectivity extends \yii\widgets\InputWidget {
 
     public static $autoIdPrefix  = 'selectivity';
 
