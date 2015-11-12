@@ -14,50 +14,19 @@ class Selectivity extends \yii\widgets\InputWidget {
 
     public static $autoIdPrefix  = 'selectivity';
 
-
-    public static function begin($config = [])
-    {
-        $w    = parent::begin($config);
-        $view = $w->getView();
-
-        // echo Html::beginForm($w->action, $w->method, ArrayHelper::merge(ArrayHelper::getValue($config, 'options', []), ['id' => $w->id, 'method' => 'POST', 'enctype' => 'multipart/form-data']));
-
-        SelectivityAsset::register($view);
-
-        // client side validate on submit
-        if ($w->validateOnSubmit) {
-            $view->registerJs(sprintf(<<<EOD
-$('#%1\$s').submit(function(e) {
-    //selectivity code
-})
-EOD
-, $w->id, Json::encode($w->defaults)), View::POS_END);
-        }
-
-
-        return $w;
-    }
-
-
-    public static function end() {
-    	$w 		= self::$stack[count(self::$stack) - 1];
-        $view 	= $w->getView();
-
-        parent::end();
-    }
+    public $inputOptions = ['class' => 'selectivity'];
 
     public function run() {
-        return 'this is a selectivity box';
+        $this->view->registerJs(sprintf("$('#%1\$s').selectivity(%2\$s);", $this->id, Json::encode($this->options)), View::POS_READY);
+
+        $this->inputOptions['id'] = $this->id;   
+        return Html::beginTag('div', $this->inputOptions).Html::endTag('div');
     }
 
     public function init() {
         parent::init();
-
-    	// if ($this->action == null)
-    	// 	$this->action = Url::current();
+        SelectivityAsset::register($this->view);
     }
-
-
 
 }
 
