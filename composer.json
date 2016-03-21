@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "bower-asset/selectivity":  ">=2.1.0"
+        "bower-asset/selectivity":  "*"
     },
     "autoload": {
         "psr-4": { "x1\\selectivity\\": "" }
